@@ -1,12 +1,12 @@
 import React from 'react'
 export default function Taco(props) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 500 450"
-            dangerouslySetInnerHTML={{
-                __html: `<defs>
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 500 450"
+      dangerouslySetInnerHTML={{
+        __html: `<defs>
         <linearGradient id="a">
             <stop offset="0" stop-color="#d7f4e3" />
             <stop offset="1" stop-color="#d7f4e3" stop-opacity="0" />
@@ -225,7 +225,7 @@ export default function Taco(props) {
         fill="url(#d)"
         transform="translate(24.066 22.516) scale(1.2075)"
     />`,
-            }}
-        ></svg>
-    )
+      }}
+    ></svg>
+  )
 }
