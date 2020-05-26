@@ -7,34 +7,36 @@ import Wizard from './Components/Wizard'
 import Leaderboard from './Components/Leaderboard'
 import RainingTacos from './Components/RainingTacos'
 
-let workerData = [
-  'Daron',
-  'Joe',
-  'Patrick',
-  'Zach',
-  'Mark',
-  'Marc',
-  'Kiefer',
-  'Rian',
-  'Ben',
-  'Dave',
-].map((worker) => {
-  return {
-    name: worker,
-    score: Math.floor(Math.random() * 50),
-    isShowing: false,
-    isWinner: false,
+async function getWorkerData() {
+  try {
+    return await fetch(
+      'https://cors-anywhere.herokuapp.com/https://www.heytaco.chat/api/v1.2/json/leaderboard/T1FM0A6GZ?days=7',
+      {
+        // referrerPolicy: 'origin-when-cross-origin',
+        // headers: {
+        //   'Some-Header': 'something',
+        //   Referer: 'https://competent-poitras-b84d5b.netlify.app',
+        // },
+      }
+    )
+      .then((data) => data.json())
+      .then((data) => {
+        let workers = [...data.leaderboard]
+        workers = workers.map((worker) => {
+          return {
+            ...worker,
+            name: worker.username,
+            score: worker.sum,
+            isShowing: false,
+            isWinner: false,
+          }
+        })
+        return workers
+      })
+  } catch (e) {
+    console.log(e)
+    return []
   }
-})
-
-try {
-  fetch('https://www.heytaco.chat/api/v1.1/json/leaderboard/T1FM0A6GZ', {
-    referrerPolicy: 'origin-when-cross-origin',
-  }).then((data) => {
-    console.log(data.json())
-  })
-} catch (e) {
-  console.log(e)
 }
 
 /**
@@ -53,11 +55,15 @@ const App = () => {
   const [isPlayingVideo, setIsPlayingVideo] = useState(false)
 
   useEffect(() => {
-    let data = [...workerData].sort((a, b) => a.score - b.score)
-    // the last value must be the winner.
-    data[data.length - 1].isWinner = true
-    data = shuffle(data)
-    setWorkers(data)
+    async function getData() {
+      let data = await getWorkerData()
+      data.sort((a, b) => a.score - b.score)
+      // the last value must be the winner.
+      data[data.length - 1].isWinner = true
+      data = shuffle(data)
+      setWorkers(data)
+    }
+    getData()
   }, [setWorkers])
 
   return (

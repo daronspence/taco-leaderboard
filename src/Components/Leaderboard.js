@@ -8,11 +8,11 @@ const Leaderboard = ({ board, isShowingWinners }) => {
         return (
           <div key={worker.name} className="w-24 text-center">
             <div
-              className="border-b border-red-500 transition"
+              className="border-b border-red-500 transition break-all"
               style={{
                 borderBottomWidth:
                   worker.isShowing || isShowingWinners
-                    ? `${worker.score}px`
+                    ? `${worker.score * 5}px`
                     : 0,
               }}
             >
