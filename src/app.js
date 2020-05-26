@@ -27,6 +27,16 @@ let workerData = [
   }
 })
 
+try {
+  fetch('https://www.heytaco.chat/api/v1.1/json/leaderboard/T1FM0A6GZ').then(
+    (data) => {
+      console.log(data.json())
+    }
+  )
+} catch (e) {
+  console.log(e)
+}
+
 /**
  * Get the person in the given position.
  * @param {int}  position What position the person is. Eg. 1st, 2nd, 3rd.
