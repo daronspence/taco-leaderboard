@@ -11,13 +11,6 @@ async function getWorkerData() {
   try {
     return await fetch(
       'https://cors-anywhere.herokuapp.com/https://www.heytaco.chat/api/v1.2/json/leaderboard/T1FM0A6GZ?days=7',
-      {
-        // referrerPolicy: 'origin-when-cross-origin',
-        // headers: {
-        //   'Some-Header': 'something',
-        //   Referer: 'https://competent-poitras-b84d5b.netlify.app',
-        // },
-      }
     )
       .then((data) => data.json())
       .then((data) => {
@@ -59,7 +52,9 @@ const App = () => {
       let data = await getWorkerData()
       data.sort((a, b) => a.score - b.score)
       // the last value must be the winner.
-      data[data.length - 1].isWinner = true
+      if (data.length) {
+        data[data.length - 1].isWinner = true
+      }
       data = shuffle(data)
       setWorkers(data)
     }

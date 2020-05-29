@@ -2,13 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const Leaderboard = ({ board, isShowingWinners }) => {
+  if (!board.length) {
+    return (<div className="mt-8">No peeps from the API :(</div>)
+  }
   return (
-    <div className="grid gap-4 grid-flow-col items-end h-32">
+    <div className="grid gap-4 grid-flow-col items-end h-64">
       {board.map((worker) => {
         return (
           <div key={worker.name} className="w-24 text-center">
             <div
-              className="border-b border-red-500 transition break-all"
+              className="border-b border-red-500 transition flex flex-col justify-center items-center"
               style={{
                 borderBottomWidth:
                   worker.isShowing || isShowingWinners
@@ -16,9 +19,9 @@ const Leaderboard = ({ board, isShowingWinners }) => {
                     : 0,
               }}
             >
-              {worker.name}
+              <img src={worker.avatar} className="w-16 h-16 rounded-full block" />
               {worker.isShowing && (
-                <span className="ml-2">({worker.score})</span>
+                <span className="ml-2 relative" style={{top: 24}}>({worker.score} tacos)</span>
               )}
             </div>
           </div>

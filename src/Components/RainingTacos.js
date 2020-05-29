@@ -12,7 +12,7 @@ export default function RainingTacos({ isShowingWinners, ...props }) {
         count={20}
         snowflakeFactory={(idx) => {
           return (
-            <Snowflake className="w-12 h-12 flex items-stretch">
+            <Snowflake speed={2} className="w-12 h-12 flex items-stretch">
               <Taco
                 className="w-12 h-12 block wobble"
                 style={{
